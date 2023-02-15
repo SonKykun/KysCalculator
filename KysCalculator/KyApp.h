@@ -1,6 +1,6 @@
 #pragma once
 #include "wx/wx.h"
-class KyWindow;
+#include "KyWindow.h"
 class KyApp : public wxApp
 {
 	KyWindow* window = nullptr;
