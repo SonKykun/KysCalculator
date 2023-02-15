@@ -1,4 +1,6 @@
 #include "KyWindow.h"
+#include <vector>
+std::vector<wxString> MakeEquation(wxString readString, wxChar op);
 wxBEGIN_EVENT_TABLE(KyWindow, wxFrame)
 EVT_BUTTON(1, OnButton0Clicked)
 EVT_BUTTON(2, OnButton1Clicked)
@@ -218,13 +220,56 @@ void KyWindow::OnButtondivideClicked(wxCommandEvent& cldBtn)
 }
 void KyWindow::OnButtonequalsClicked(wxCommandEvent& cldBtn)
 {
+	float first = 0.0;
+	float second = 0.0;
+	float total = 0.0;
+	int mod1 = 0;
+	int mod2 = 0;
+	int modT = 0;
+	wxString equation = textBox->GetValue();
 	if (textBox->GetValue() == "0")
 	{
 		textBox->SetValue(equals->GetLabel());
 	}
-	else
+	else if (strstr(equation, "+"))
 	{
-		textBox->AppendText(equals->GetLabel());
+		first = atoi(MakeEquation(equation, '+')[0].c_str());
+		second = atoi(MakeEquation(equation, '+')[1].c_str());
+		total = first + second;
+		textBox->Clear();
+		(*textBox) << total;
+	}
+	else if (strstr(equation, "-"))
+	{
+		first = atoi(MakeEquation(equation, '-')[0].c_str());
+		second = atoi(MakeEquation(equation, '-')[1].c_str());
+		total = first - second;
+		textBox->Clear();
+		(*textBox) << total;
+	}
+	else if (strstr(equation, "*"))
+	{
+		first = atoi(MakeEquation(equation, '*')[0].c_str());
+		second = atoi(MakeEquation(equation, '*')[1].c_str());
+		total = first * second;
+		textBox->Clear();
+		(*textBox) << total;
+	}
+	else if (strstr(equation, "/"))
+	{
+		first = atoi(MakeEquation(equation, '/')[0].c_str());
+		second = atoi(MakeEquation(equation, '/')[1].c_str());
+		total = first / second;
+		textBox->Clear();
+		(*textBox) << total;
+	}
+	else if (strstr(equation, "%"))
+	{
+		mod1 = atoi(MakeEquation(equation, '%')[0].c_str());
+		mod2 = atoi(MakeEquation(equation, '%')[1].c_str());
+		modT = mod1 % mod2;
+		textBox->Clear();
+		(*textBox) << modT;
 	}
 }
 void KyWindow::OnButtonmodClicked(wxCommandEvent& cldBtn)
@@ -292,4 +337,29 @@ void KyWindow::OnButtondotClicked(wxCommandEvent& cldBtn)
 	{
 		textBox->AppendText(dot->GetLabel());
 	}
+}
+std::vector<wxString> MakeEquation(wxString readString, wxChar findOp)
+{
+	std::vector<wxString> madeEquation;
+	bool foundOp = false;
+	wxString str1 = "";
+	wxString str2 = "";
+	for (auto i = 0; i < readString.size(); i++)
+	{
+		if (readString.at(i) != findOp && foundOp == false)
+		{
+			str1 += readString.at(i);
+		}
+		else if (readString.at(i) == findOp)
+		{
+			foundOp = true;
+		}
+		else if (readString.at(i) != findOp && foundOp == true)
+		{
+			str2 += readString.at(i);
+		}
+	}
+	madeEquation.push_back(str1);
+	madeEquation.push_back(str2);
+	return madeEquation;
 }
