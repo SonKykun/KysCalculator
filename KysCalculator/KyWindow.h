@@ -5,6 +5,7 @@ class KyWindow : public wxFrame
 public:
 	KyWindow();
 	~KyWindow();
+	wxPanel* panel = nullptr;
 	wxTextCtrl* textBox = nullptr;
 	wxButton* zero = nullptr;
 	wxButton* one = nullptr;
