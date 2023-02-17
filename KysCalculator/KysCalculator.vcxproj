@@ -133,12 +133,10 @@
   <ItemGroup>
     <ClInclude Include="KyApp.h" />
     <ClInclude Include="KyWindow.h" />
-    <ClInclude Include="Operations.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KyApp.cpp" />
     <ClCompile Include="KyWindow.cpp" />
-    <ClCompile Include="Operations.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
